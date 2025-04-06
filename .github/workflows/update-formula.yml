@@ -1,0 +1,73 @@
+name: Update Formula on Release
+
+on:
+  repository_dispatch:
+    types: [release-created]
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Release tag (e.g., v1.0.0)'
+        required: true
+      repo_name:
+        description: 'Repository name (e.g., username/macmonitor)'
+        required: true
+        default: 'username/macmonitor'
+
+jobs:
+  update-formula:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout tap repository
+        uses: actions/checkout@v3
+        
+      - name: Set release variables from workflow_dispatch
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "RELEASE_TAG=${{ github.event.inputs.tag_name }}" >> $GITHUB_ENV
+          echo "REPO_NAME=${{ github.event.inputs.repo_name }}" >> $GITHUB_ENV
+          
+      - name: Set release variables from repository_dispatch
+        if: github.event_name == 'repository_dispatch'
+        run: |
+          echo "RELEASE_TAG=${{ github.event.client_payload.tag_name }}" >> $GITHUB_ENV
+          echo "REPO_NAME=${{ github.event.client_payload.repository }}" >> $GITHUB_ENV
+          
+      - name: Get release URL and download tarball
+        run: |
+          RELEASE_URL="https://github.com/${REPO_NAME}/archive/refs/tags/${RELEASE_TAG}.tar.gz"
+          echo "Release URL: $RELEASE_URL"
+          curl -L -o release.tar.gz $RELEASE_URL
+          
+      - name: Calculate SHA256
+        run: |
+          SHA256=$(shasum -a 256 release.tar.gz | awk '{print $1}')
+          echo "SHA256=$SHA256" >> $GITHUB_ENV
+          echo "SHA256 hash: $SHA256"
+          
+      - name: Extract version from tag
+        run: |
+          # Remove 'v' prefix if present
+          VERSION=${RELEASE_TAG#v}
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Version: $VERSION"
+          
+      - name: Update formula
+        run: |
+          sed -i '' "s|url \".*\"|url \"https://github.com/${REPO_NAME}/archive/refs/tags/${RELEASE_TAG}.tar.gz\"|" Formula/macmonitor.rb
+          sed -i '' "s|sha256 \".*\"|sha256 \"${SHA256}\"|" Formula/macmonitor.rb
+          sed -i '' "s|version \".*\"|version \"${VERSION}\"|" Formula/macmonitor.rb
+          
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Update MacMonitor formula to ${{ env.RELEASE_TAG }}"
+          title: "Update MacMonitor formula to ${{ env.RELEASE_TAG }}"
+          body: |
+            Automated formula update via GitHub Actions
+            
+            - Update URL to ${{ env.RELEASE_TAG }} release
+            - Update SHA256 hash
+            - Update version to ${{ env.VERSION }}
+          branch: update-formula-${{ env.RELEASE_TAG }}
+          base: main

@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  shellcheck:
+    name: ShellCheck
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install ShellCheck
+        run: brew install shellcheck
+      - name: Run ShellCheck on shell scripts
+        run: |
+          shellcheck *.sh
+          shellcheck tests/*.sh
+
+  structure-test:
+    name: Script Structure Test
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Make test scripts executable
+        run: chmod +x tests/*.sh
+      - name: Run structure tests
+        run: tests/test_script_structure.sh
+
+  integration-test:
+    name: Basic Integration Test
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Make scripts executable
+        run: chmod +x *.sh
+      - name: Run test script (no installation)
+        run: ./test_monitor.sh
+      # This is a basic test without installing the monitor
+      # Full installation tests would require additional setup and permissions
