@@ -1,0 +1,162 @@
+/* 
+ * Custom styles for MacMonitor website 
+ */
+
+/* Global Styles */
+:root {
+  --primary-color: #4F46E5;
+  --primary-hover: #4338CA;
+  --secondary-color: #1E40AF;
+  --text-color: #1F2937;
+  --text-light: #6B7280;
+  --bg-color: #F9FAFB;
+  --danger-color: #EF4444;
+  --warning-color: #F59E0B;
+  --success-color: #10B981;
+}
+
+body {
+  scroll-behavior: smooth;
+}
+
+/* Code formatting */
+code {
+  background-color: #E5E7EB;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Command examples */
+.command-example {
+  background-color: #1F2937;
+  color: #F3F4F6;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+/* Copy button for code blocks */
+.copy-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 0.25rem;
+  color: #F3F4F6;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.copy-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Alert boxes */
+.info-box {
+  background-color: #EFF6FF;
+  border-left: 4px solid #3B82F6;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 0.25rem;
+}
+
+.warning-box {
+  background-color: #FFFBEB;
+  border-left: 4px solid #F59E0B;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 0.25rem;
+}
+
+.success-box {
+  background-color: #ECFDF5;
+  border-left: 4px solid #10B981;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 0.25rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Feature card hover effect */
+.feature-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  h1 {
+    font-size: 1.875rem !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  pre, code {
+    font-size: 0.875rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  nav, footer, button, .toc-container {
+    display: none !important;
+  }
+  
+  body {
+    font-size: 12pt;
+    color: #000;
+    background-color: #fff;
+  }
+  
+  a {
+    text-decoration: underline;
+    color: #000;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+  
+  img {
+    page-break-inside: avoid;
+    max-width: 100% !important;
+  }
+  
+  pre, blockquote {
+    page-break-inside: avoid;
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+  }
+  
+  @page {
+    margin: 2cm;
+  }
+}

@@ -1,0 +1,18 @@
+#!/bin/bash
+# Internal utility to restart the monitor service
+
+# Get current username
+USERNAME=$(whoami)
+PLIST_PATH="$HOME/Library/LaunchAgents/com.$USERNAME.monitorlogger.plist"
+
+# Check if LaunchAgent exists
+if [ ! -f "$PLIST_PATH" ]; then
+    echo "Error: LaunchAgent not found at $PLIST_PATH"
+    exit 1
+fi
+
+# Restart the service
+launchctl unload "$PLIST_PATH" 2>/dev/null
+sleep 1
+launchctl load -w "$PLIST_PATH"
+echo "Monitor service restarted."

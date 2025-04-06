@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Mac System Monitor - LaunchAgent Template
+  
+  This is a template for the LaunchAgent plist file.
+  The placeholders USERNAME and MONITOR_DIR will be replaced
+  with the actual values during installation.
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.USERNAME.monitorlogger</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>MONITOR_DIR/monitor_status.sh</string>
+    </array>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>KeepAlive</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/monitorlogger.out</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/monitorlogger.err</string>
+</dict>
+</plist>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MacMonitor - Lightweight System Monitoring for macOS</title>
+    <meta name="description" content="MacMonitor is a lightweight, non-intrusive system monitoring tool for your Mac that helps you track CPU, GPU, memory usage and more with intelligent alerts.">
+    <meta name="keywords" content="mac, macOS, monitoring, system monitor, CPU temperature, GPU temperature, memory, performance, alerts">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="MacMonitor - Lightweight System Monitoring for macOS">
+    <meta property="og:description" content="Track your Mac's health with real-time monitoring of CPU, GPU, memory usage and customizable alerts.">
+    <meta property="og:image" content="https://macmonitor.example.com/img/social-preview.jpg">
+    <meta property="og:url" content="https://macmonitor.example.com">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MacMonitor - Lightweight System Monitoring for macOS">
+    <meta name="twitter:description" content="Track your Mac's health with real-time monitoring of CPU, GPU, memory usage and customizable alerts.">
+    <meta name="twitter:image" content="https://macmonitor.example.com/img/social-preview.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/custom.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <span class="font-semibold text-xl text-gray-900">MacMonitor</span>
+            </a>
+            <div class="space-x-6 hidden md:flex">
+                <a href="index.html" class="text-indigo-600 font-medium">Home</a>
+                <a href="guide.html" class="text-gray-600 hover:text-indigo-600 transition">Guide</a>
+                <a href="download.html" class="text-gray-600 hover:text-indigo-600 transition">Install</a>
+                <a href="https://github.com/user/mac-system-monitor" class="text-gray-600 hover:text-indigo-600 transition">GitHub</a>
+            </div>
+            <button class="md:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-indigo-950 to-blue-800 text-white py-20">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Monitor Your Mac's Health with Ease</h1>
+                <p class="text-xl mb-8 opacity-90">Lightweight, non-intrusive monitoring for CPU, GPU, memory and more.</p>
+                <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                    <a href="download.html" class="bg-white text-indigo-600 hover:bg-gray-100 transition py-3 px-6 rounded-lg font-medium text-center">
+                        Install Now
+                    </a>
+                    <a href="guide.html" class="border border-white text-white hover:bg-white hover:text-indigo-600 transition py-3 px-6 rounded-lg font-medium text-center">
+                        Read the Guide
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2">
+                <!-- Quick Installation Section -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">Quick Installation</h2>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                        <h3 class="text-lg font-semibold mb-2 text-gray-900">Homebrew (Recommended)</h3>
+                        <div class="bg-gray-900 rounded p-2 overflow-x-auto">
+                            <pre style="background-color: #1F2937;" class="text-gray-200 font-mono text-sm"><code style="background-color: transparent; color: #F3F4F6;">brew install macmonitor</code></pre>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <a href="download.html" class="text-indigo-600 hover:text-indigo-700 font-medium text-sm">
+                            More installation options →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    
+
+    <!-- Usage Example Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-8">Simple to Use</h2>
+            <p class="text-lg text-center text-gray-600 mb-12 max-w-3xl mx-auto">MacMonitor works right out of the box with sensible defaults, while providing powerful customization for advanced users.</p>
+            
+            <div class="bg-gray-900 rounded-lg shadow-xl p-6 mb-8 overflow-hidden">
+                <div class="flex items-center mb-4">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                        <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                    </div>
+                    <div class="ml-4 text-white opacity-70 text-sm">Terminal</div>
+                </div>
+                <pre style="background-color: #1F2937;" class="text-gray-200 font-mono text-sm md:text-base overflow-x-auto"><code style="background-color: transparent; color: #F3F4F6;">$ mm show
+
+Mac System Monitor - Live Stats (Updated: 2025-04-06 20:51:53)
+Next refresh at 20:52:23. Press Ctrl+C to exit.
+
+|      Timestamp       |  CPU   |  GPU   |  WS CPU  |  Memory   |    Swap    |   Fan    |   Uptime   |                   Alerts                   |
+|----------------------|--------|--------|----------|-----------|------------|----------|------------|--------------------------------------------|
+| 2025-04-06 20:51:53  |   60   |   65   |    15    |    71%    |  145.25M   |   4722   |    6:00    | [SWAP 145.25M/1MB +14425%]                 |
+| 2025-04-06 20:51:23  |   52   |   59   |    12    |    68%    |  115.50M   |   4210   |    5:30    |                                            |
+| 2025-04-06 20:50:53  |   48   |   52   |    10    |    65%    |   85.20M   |   3980   |    5:00    |                                            |
+| 2025-04-06 20:50:23  |   75   |   77   |    15    |    71%    |  145.25M   |   5646   |    4:30    | [CPU 75/70°C +7%] [FAN 5646/5000 +12%]     |</code></pre>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 my-12">
+                <div class="bg-gray-900 rounded-lg shadow-xl p-6 overflow-hidden">
+                    <div class="flex items-center mb-4">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                        </div>
+                        <div class="ml-4 text-white opacity-70 text-sm">Terminal</div>
+                    </div>
+                    <pre style="background-color: #1F2937;" class="text-gray-200 font-mono text-sm md:text-base overflow-x-auto"><code style="background-color: transparent; color: #F3F4F6;">$ mm config list
+
+Current MacMonitor Configuration:
+--------------------------------
+CPU Temperature Threshold: 80°C
+GPU Temperature Threshold: 80°C
+Window Server CPU Threshold: 40%
+Memory Pressure Threshold: 85%
+Swap Usage Threshold: 1000MB
+Fan Speed Threshold: 6000 RPM
+Alert Cooldown: 10 minutes
+Streak Threshold: 3
+Severity Level: 1 (Low)
+Do Not Disturb: Off</code></pre>
+                </div>
+                
+                <div class="bg-gray-900 rounded-lg shadow-xl p-6 overflow-hidden">
+                    <div class="flex items-center mb-4">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                        </div>
+                        <div class="ml-4 text-white opacity-70 text-sm">Terminal</div>
+                    </div>
+                    <pre style="background-color: #1F2937;" class="text-gray-200 font-mono text-sm md:text-base overflow-x-auto"><code style="background-color: transparent; color: #F3F4F6;">$ mm help
+
+USAGE: mm [command] [options]
+
+Commands:
+  show       Show system stats with auto-refresh
+  test       Test which metrics are available
+  config     View or modify configuration
+  restart    Restart the monitoring service
+  uninstall  Remove MacMonitor from system
+  help       Display this help
+
+Example:
+  mm show -l 50  # Show 50 most recent entries</code></pre>
+                </div>
+            </div>
+            
+            <div class="flex justify-center">
+                <a href="guide.html" class="bg-indigo-600 hover:bg-indigo-700 transition text-white py-3 px-8 rounded-lg font-medium">
+                    View the Complete Guide
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Why Choose MacMonitor?</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="text-indigo-600 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Lightweight</h3>
+                    <p class="text-gray-600">Minimal resource usage - you won't even notice it's running in the background.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="text-indigo-600 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Comprehensive</h3>
+                    <p class="text-gray-600">Monitor CPU & GPU temperatures, memory pressure, swap usage, fan speeds and more.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="text-indigo-600 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Smart Alerts</h3>
+                    <p class="text-gray-600">Customizable alerts with severity levels, Do Not Disturb mode, and cooldown periods.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terms and Privacy Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Open Source Software</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Privacy -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold mb-4">Privacy Policy</h3>
+                    <p class="text-gray-600 mb-4">MacMonitor is an open source application that respects your privacy:</p>
+                    <ul class="text-gray-600 space-y-2 list-disc pl-5">
+                        <li>No data is ever sent to remote servers</li>
+                        <li>All monitoring is performed locally on your device</li>
+                        <li>No personal information is collected</li>
+                        <li>No analytics or tracking</li>
+                    </ul>
+                    <p class="text-gray-600 mt-4">The application only reads system metrics that are publicly available through macOS APIs.</p>
+                </div>
+                
+                <!-- Terms -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold mb-4">Terms of Service</h3>
+                    <p class="text-gray-600 mb-4">By using MacMonitor, you agree to the following terms:</p>
+                    <ul class="text-gray-600 space-y-2 list-disc pl-5">
+                        <li>The software is provided "as is", without warranty of any kind</li>
+                        <li>You use this software at your own risk</li>
+                        <li>The developers are not responsible for any damage that may occur</li>
+                        <li>You agree not to use MacMonitor for any illegal activities</li>
+                        <li>As an open source project, you may modify the software according to its license</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-indigo-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Ready to Monitor Your Mac?</h2>
+            <p class="text-xl mb-10 opacity-90 max-w-3xl mx-auto">Keep your Mac running smoothly with real-time monitoring and intelligent alerts.</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="download.html" class="bg-white text-indigo-600 hover:bg-gray-100 transition py-3 px-8 rounded-lg font-medium">
+                    Install Now
+                </a>
+                <a href="guide.html" class="border border-white text-white hover:bg-white hover:text-indigo-600 transition py-3 px-8 rounded-lg font-medium">
+                    Read the Guide
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between">
+                <div class="mb-8 md:mb-0">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <span class="font-semibold text-xl">MacMonitor</span>
+                    </div>
+                    <p class="text-gray-400 max-w-xs">A lightweight monitoring tool for macOS to keep your system running smoothly.</p>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="font-semibold mb-4">Product</h3>
+                        <ul class="space-y-2">
+                            <li><a href="download.html" class="text-gray-400 hover:text-white transition">Install</a></li>
+                            <li><a href="guide.html" class="text-gray-400 hover:text-white transition">Guide</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition">Changelog</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold mb-4">Resources</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white transition">Documentation</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition">FAQs</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition">Support</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold mb-4">Connect</h3>
+                        <ul class="space-y-2">
+                            <li><a href="https://github.com/user/mac-system-monitor" class="text-gray-400 hover:text-white transition">GitHub</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition">Twitter</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between">
+                <p class="text-gray-500">&copy; 2025 MacMonitor. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-500 hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 hover:text-white transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
