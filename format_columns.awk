@@ -1,15 +1,16 @@
 #!/usr/bin/awk -f
 
-# AWK script to standardize column formats
-# - Fixed column width issues
-# - Standardizes uptime format
-# - Handles headers and data rows in a consistent manner
+# MacMonitor column formatter
+# - Fixes alignment issues between headers and data
+# - Handles timestamp in either first or second column
+# - Ensures consistent column widths
+# - Always uses standard column headers
 
-BEGIN { 
-    FS = "|"; 
+BEGIN {
+    FS = "|";
     OFS = "|";
     
-    # Define column headers and their positions
+    # Define column headers
     col_names[1] = "Timestamp";
     col_names[2] = "CPU";
     col_names[3] = "GPU";
@@ -20,8 +21,8 @@ BEGIN {
     col_names[8] = "Uptime";
     col_names[9] = "Alerts";
     
-    # Set minimum widths for each column
-    min_width[1] = 20;  # Timestamp (YYYY-MM-DD HH:MM:SS)
+    # Set minimum widths
+    min_width[1] = 20;  # Timestamp
     min_width[2] = 6;   # CPU
     min_width[3] = 6;   # GPU
     min_width[4] = 8;   # WS CPU
@@ -29,58 +30,103 @@ BEGIN {
     min_width[6] = 10;  # Swap
     min_width[7] = 8;   # Fan
     min_width[8] = 10;  # Uptime
-    min_width[9] = 42;  # Alerts - increased to accommodate alert messages
+    min_width[9] = 42;  # Alerts
     
-    # Initialize column widths to minimums
+    # Initialize widths
     for (i = 1; i <= 9; i++) {
         width[i] = min_width[i];
     }
     
-    # Skip headers provided in input - we'll generate our own
-    skip_lines = 2;
-    line_num = 0;
+    # Skip non-data lines
     row_count = 0;
 }
 
-# Skip header lines from the input
+# Process data rows with timestamp detection
 {
-    line_num++;
-    if (line_num <= skip_lines) next;
-}
-
-# Process data lines only
-$0 ~ /\|[ ]*[0-9]{4}-[0-9]{2}-[0-9]{2}[ ][0-9]{2}:[0-9]{2}:[0-9]{2}[ ]*\|/ {
-    row_count++;
+    # Skip non-table and info lines
+    if ($0 !~ /^\|/ || $0 ~ /Next refresh/) next;
     
-    # Extract and clean fields - skip the empty first field
-    for (i = 2; i <= NF; i++) {
-        if (i > 10) continue; # Skip any extra fields
-        
-        # Get index in our data array (subtract 1 because input has an empty column)
-        idx = i-1;
-        if (idx < 1 || idx > 9) continue;
-        
-        # Clean up the field value
+    # Skip separator rows
+    if ($0 ~ /^\|[-|]+$/) next;
+    
+    # Skip header rows from input
+    if ($0 ~ /Timestamp.*CPU.*Memory/) next;
+    
+    # Look for a timestamp in the line
+    has_timestamp = 0;
+    timestamp_col = 0;
+    
+    for (i = 1; i <= NF; i++) {
         val = $i;
         gsub(/^[ \t]+|[ \t]+$/, "", val);
-        data[row_count, idx] = val;
         
-        # Update column width if this value is wider
-        if (length(val) > width[idx]) {
-            width[idx] = length(val);
+        if (val ~ /[0-9]{4}-[0-9]{2}-[0-9]{2}/) {
+            has_timestamp = 1;
+            timestamp_col = i;
+            break;
         }
     }
     
-    # Standardize uptime format in column 8
-    if (data[row_count, 8] ~ /hrs?$/ || data[row_count, 8] ~ /hours?$/) {
-        hour = data[row_count, 8];
-        gsub(/[^0-9].*$/, "", hour);
-        data[row_count, 8] = hour ":00";
+    # Only process lines with a timestamp
+    if (has_timestamp) {
+        row_count++;
+        
+        if (timestamp_col == 2) {
+            # Timestamp is in CPU column - need to fix
+            
+            # Extract the timestamp and put it in column 1
+            ts_val = $timestamp_col;
+            gsub(/^[ \t]+|[ \t]+$/, "", ts_val);
+            row_data[row_count, 1] = ts_val;
+            
+            # Update width if needed
+            if (length(ts_val) > width[1]) {
+                width[1] = length(ts_val);
+            }
+            
+            # Store remaining values shifted by one column left
+            for (i = timestamp_col + 1; i <= NF; i++) {
+                if ((i - timestamp_col + 1) > 9) continue;
+                
+                val = $i;
+                gsub(/^[ \t]+|[ \t]+$/, "", val);
+                
+                col_idx = i - timestamp_col + 1;
+                row_data[row_count, col_idx] = val;
+                
+                # Update width if needed
+                if (length(val) > width[col_idx]) {
+                    width[col_idx] = length(val);
+                }
+            }
+        } else {
+            # Normal row with timestamp in correct column
+            
+            for (i = 1; i <= NF; i++) {
+                if (i > 9) continue;
+                
+                val = $i;
+                gsub(/^[ \t]+|[ \t]+$/, "", val);
+                
+                row_data[row_count, i] = val;
+                
+                # Update width if needed
+                if (length(val) > width[i]) {
+                    width[i] = length(val);
+                }
+            }
+        }
     }
 }
 
 END {
-    # Check if headers need additional width
+    # Check if we found any data rows
+    if (row_count == 0) {
+        print "No data rows with timestamps found.";
+        exit 0;
+    }
+    
+    # Ensure headers have enough width
     for (i = 1; i <= 9; i++) {
         if (length(col_names[i]) > width[i]) {
             width[i] = length(col_names[i]);
@@ -88,40 +134,37 @@ END {
     }
     
     # Print header row
-    printf("| ");
+    printf("|");
     for (i = 1; i <= 9; i++) {
-        name = col_names[i];
-        
-        # Center the header text
-        padding = int((width[i] - length(name)) / 2);
+        # Center header text
+        padding = int((width[i] - length(col_names[i])) / 2);
         left_pad = "";
         right_pad = "";
         
         for (p = 0; p < padding; p++) left_pad = left_pad " ";
-        for (p = 0; p < (width[i] - length(name) - padding); p++) right_pad = right_pad " ";
+        for (p = 0; p < (width[i] - length(col_names[i]) - padding); p++) right_pad = right_pad " ";
         
-        printf("%s%s%s | ", left_pad, name, right_pad);
+        printf(" %s%s%s |", left_pad, col_names[i], right_pad);
     }
     printf("\n");
     
     # Print separator row
     printf("|");
     for (i = 1; i <= 9; i++) {
-        printf("-");
-        for (j = 0; j < width[i]; j++) printf("-");
-        printf("-|");
+        for (j = 0; j < width[i] + 2; j++) printf("-");
+        printf("|");
     }
     printf("\n");
     
     # Print data rows
     for (r = 1; r <= row_count; r++) {
-        printf("| ");
+        printf("|");
         for (i = 1; i <= 9; i++) {
-            val = data[r, i] ? data[r, i] : "";
+            val = row_data[r, i] ? row_data[r, i] : "";
             
             if (i == 1 || i == 9) {
                 # Left-align Timestamp and Alerts
-                printf("%-*s | ", width[i], val);
+                printf(" %-*s |", width[i], val);
             } else {
                 # Center-align numeric columns
                 padding = int((width[i] - length(val)) / 2);
@@ -131,7 +174,7 @@ END {
                 for (p = 0; p < padding; p++) left_pad = left_pad " ";
                 for (p = 0; p < (width[i] - length(val) - padding); p++) right_pad = right_pad " ";
                 
-                printf("%s%s%s | ", left_pad, val, right_pad);
+                printf(" %s%s%s |", left_pad, val, right_pad);
             }
         }
         printf("\n");

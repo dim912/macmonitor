@@ -89,7 +89,7 @@
                 <a href="index.html" class="text-gray-600 hover:text-indigo-600 transition">Home</a>
                 <a href="guide.html" class="text-indigo-600 font-medium">Guide</a>
                 <a href="download.html" class="text-gray-600 hover:text-indigo-600 transition">Install</a>
-                <a href="https://github.com/user/mac-system-monitor" class="text-gray-600 hover:text-indigo-600 transition">GitHub</a>
+                <a href="https://github.com/dim912/macmonitor" class="text-gray-600 hover:text-indigo-600 transition">GitHub</a>
             </div>
             <button class="md:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -137,17 +137,17 @@
                         
                         <h3 class="text-xl font-semibold mt-6 mb-3">Option 1: Homebrew (Recommended)</h3>
                         <p class="mb-4">Using Homebrew is the easiest way to install and maintain MacMonitor:</p>
-                        <pre style="background-color: #1F2937;"><code style="background-color: transparent; color: #F3F4F6;">brew tap username/macmonitor
+                        <pre style="background-color: #1F2937;"><code style="background-color: transparent; color: #F3F4F6;">brew tap dim912/tap
 brew install macmonitor</code></pre>
                         
                         <h3 class="text-xl font-semibold mt-6 mb-3">Option 2: One-Line Installer</h3>
                         <p class="mb-4">If you don't have Homebrew, you can use our one-line installer script:</p>
-                        <pre style="background-color: #1F2937;"><code style="background-color: transparent; color: #F3F4F6;">bash -c "$(curl -fsSL https://raw.githubusercontent.com/user/mac-system-monitor/main/install_curl.sh)"</code></pre>
+                        <pre style="background-color: #1F2937;"><code style="background-color: transparent; color: #F3F4F6;">bash -c "$(curl -fsSL https://raw.githubusercontent.com/dim912/macmonitor/main/install_curl.sh)"</code></pre>
                         
                         <h3 class="text-xl font-semibold mt-6 mb-3">Option 3: Manual Installation</h3>
                         <p class="mb-4">To manually install:</p>
                         <ol class="list-decimal pl-6 space-y-2 mb-4">
-                            <li>Download the latest release from the <a href="https://github.com/user/mac-system-monitor/releases" class="text-indigo-600 hover:text-indigo-700 underline">GitHub repository</a></li>
+                            <li>Download the latest release from the <a href="https://github.com/dim912/macmonitor/releases" class="text-indigo-600 hover:text-indigo-700 underline">GitHub repository</a></li>
                             <li>Extract the archive to any location</li>
                             <li>Open Terminal and navigate to the extracted directory</li>
                             <li>Run <code>chmod +x install_monitor.sh</code> to make the installer executable</li>
@@ -420,6 +420,10 @@ alias monitor-alerts='grep "\[" ~/monitor_logs/dual_monitor_log_$(date +%Y-%m-%d
                             <div>
                                 <h3 class="text-lg font-semibold mb-2">Missing Values (N/A)</h3>
                                 <p>If you see N/A for certain metrics, it might be because:</p>
+                                <ul class="list-disc pl-6 mt
+<div>
+                                <h3 class="text-lg font-semibold mb-2">Missing Values (N/A)</h3>
+                                <p>If you see N/A for certain metrics, it might be because:</p>
                                 <ul class="list-disc pl-6 mt-2">
                                     <li>Your Mac model doesn't expose those metrics</li>
                                     <li>Required dependencies are missing</li>
@@ -496,7 +500,7 @@ alias monitor-alerts='grep "\[" ~/monitor_logs/dual_monitor_log_$(date +%Y-%m-%d
                     <div>
                         <h3 class="font-semibold mb-4">Product</h3>
                         <ul class="space-y-2">
-                            <li><a href="download.html" class="text-gray-400 hover:text-white transition">Download</a></li>
+                            <li><a href="download.html" class="text-gray-400 hover:text-white transition">Install</a></li>
                             <li><a href="guide.html" class="text-gray-400 hover:text-white transition">Guide</a></li>
                             <li><a href="#" class="text-gray-400 hover:text-white transition">Changelog</a></li>
                         </ul>
@@ -514,7 +518,7 @@ alias monitor-alerts='grep "\[" ~/monitor_logs/dual_monitor_log_$(date +%Y-%m-%d
                     <div>
                         <h3 class="font-semibold mb-4">Connect</h3>
                         <ul class="space-y-2">
-                            <li><a href="https://github.com/user/mac-system-monitor" class="text-gray-400 hover:text-white transition">GitHub</a></li>
+                            <li><a href="https://github.com/dim912/macmonitor" class="text-gray-400 hover:text-white transition">GitHub</a></li>
                             <li><a href="#" class="text-gray-400 hover:text-white transition">Twitter</a></li>
                             <li><a href="#" class="text-gray-400 hover:text-white transition">Contact</a></li>
                         </ul>

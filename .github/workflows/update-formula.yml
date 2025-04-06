@@ -9,9 +9,9 @@ on:
         description: 'Release tag (e.g., v1.0.0)'
         required: true
       repo_name:
-        description: 'Repository name (e.g., username/macmonitor)'
+        description: 'Repository name (e.g., dim912/macmonitor)'
         required: true
-        default: 'username/macmonitor'
+        default: 'dim912/macmonitor'
 
 jobs:
   update-formula:

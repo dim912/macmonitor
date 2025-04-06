@@ -12,7 +12,7 @@ MacMonitor is a lightweight system monitoring tool for macOS that provides real-
 
 ```bash
 # Add this tap
-brew tap username/tap
+brew tap dim912/tap
 
 # Install MacMonitor
 brew install macmonitor
@@ -21,7 +21,7 @@ brew install macmonitor
 Or, in a single command:
 
 ```bash
-brew install username/tap/macmonitor
+brew install dim912/tap/macmonitor
 ```
 
 ### Updating
@@ -91,7 +91,7 @@ See the `s3-public-access-guide.md` file for instructions on configuring bucket 
 
 ## Issues and Contributing
 
-If you encounter any problems with these Homebrew formulae, please file an issue on GitHub.
+If you encounter any problems with these Homebrew formulae, please file an issue on GitHub at [https://github.com/dim912/macmonitor/issues](https://github.com/dim912/macmonitor/issues).
 
 Contributions via pull requests are welcome!
 
